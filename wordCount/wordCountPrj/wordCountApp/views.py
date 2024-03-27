@@ -24,3 +24,7 @@ def result(request):
             word_dictionary[word] = 1
 
     return render(request, "result.html", {'alltext': entered_text, 'dictionary': word_dictionary.items(), 'length': len(word_list)}) 
+
+def hello(request):
+    entered_text = request.GET['fulltext']
+    return render(request,"hello.html", {'alltext': entered_text})
