@@ -10,8 +10,9 @@
 
     <h2>자기소개를 해보세요</h2>
     <form action="{% url 'hello' %}">
-      <textarea name="name" cols="25" rows="1"></textarea>
+      <input name="name" cols="25" rows="1"></input>
       <input type="submit" value="확인" />
+      
     </form>
 
     <a href="{% url 'wordCount' %}">wordCount 페이지로 가기!</a>
