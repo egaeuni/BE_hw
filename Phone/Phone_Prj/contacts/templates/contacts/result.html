@@ -6,14 +6,13 @@
     <title>Document</title>
   </head>
   <body>
-    {% if result %}
-    <h1>" {{request.GET.data}} " - 검색 결과 페이지 입니다.</h1>
+    <h1>" {{data}} " - 검색 결과 페이지 입니다.</h1>
     {% for phone in result %}
     <h2>이름: {{ phone.name }}</h2>
     <p>전화번호: {{ phone.phone_num }}</p>
-    {% endfor %} {%else%}
+    {%empty%}
     <h1>검색 결과 페이지 입니다.</h1>
     <p>전화번호가 없습니다.</p>
-    {%endif%}
+    {%endfor%}
   </body>
 </html>

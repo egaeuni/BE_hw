@@ -6,14 +6,12 @@
     <title>Document</title>
   </head>
   <body>
-    {%if result %}
-    <h1>" {{request.GET.data}} " - 검색 결과</h1>
+    <h1>" {{data}} " - 검색 결과</h1>
     {% for post in result %}
     <h2>{{post.title}}</h2>
     <p>{{post.content}}</p>
-    {%endfor%} {%else%}
-    <h1>" {{request.GET.data}} " - 검색 결과</h1>
+    {%empty%}
     <p>검색된 글이 없습니다.</p>
-    {%endif%}
+    {%endfor%}
   </body>
 </html>
