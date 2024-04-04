@@ -13,4 +13,4 @@ def result(request):
     else:
         search_list = Phone.objects.all()
 
-    return render(request, "phone/result.html", {'result': search_list})
+    return render(request, "phone/search.html", {'result': search_list})
