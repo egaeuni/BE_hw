@@ -1,8 +1,7 @@
 from django.urls import path
 from .views import *
-from .views import IndexView
 
 urlpatterns = [
+    path('', index, name = 'index'),
     path('result/', result, name="result"),
-    path('', IndexView.as_view(), name = 'index'),
 ]
