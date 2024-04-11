@@ -3,12 +3,17 @@ from django.views.generic import ListView
 from .models import Phone
 
 # Create your views here.
-
+'''
 class IndexView(ListView):         
     #model = Phone                          
     template_name = 'contacts/index.html'      
     context_object_name = 'phones'             
     queryset = Phone.objects.all().order_by('name')
+'''
+
+def index(request):
+    phones = Phone.objects.all().order_by('name')
+    return render(request,"contacts/index.html", {'phones':phones})
 
 
 def result(request):
