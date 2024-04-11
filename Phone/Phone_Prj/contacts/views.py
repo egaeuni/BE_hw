@@ -1,10 +1,15 @@
 from django.shortcuts import render
+from django.views.generic import ListView
 from .models import Phone
 
 # Create your views here.
-def index(request):
-    phones = Phone.objects.all().order_by('name')
-    return render(request,"contacts/index.html", {'phones':phones})
+
+class IndexView(ListView):         
+    #model = Phone                          
+    template_name = 'contacts/index.html'      
+    context_object_name = 'phones'             
+    queryset = Phone.objects.all().order_by('name')
+
 
 def result(request):
     search_keyword = request.GET.get('data')
