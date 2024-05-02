@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>연락처 실습 메인 페이지</h2>
+    <hr />
+    <br />
+    {% for phone in phones %} ▶<a href="{% url 'detail' phone.id %}"
+      >{{phone.name}} - {{phone.phone_num}}</a
+    >
+    <a href="{% url 'update' phone.id %}"> 수정</a>
+    <a href="{% url 'delete' phone.id %}">삭제</a> <br /><br />
+    {% empty %} 저장된 연락처가 없습니다. {% endfor %}
+    <br /><br />
+    <a href="{%url 'create'%}">새 번호 추가</a><br />
+  </body>
+</html>
