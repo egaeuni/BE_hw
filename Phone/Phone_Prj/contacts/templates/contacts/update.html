@@ -6,7 +6,9 @@
     <title>Document</title>
 </head>
     <h2>연락처 수정</h2>
-    <form method="POST">{%csrf_token%} 이름:
+    <form method="POST" action="{%url 'update' phone.id %}">
+        {%csrf_token%} 
+        이름:
         <input type="text" name="name" /><br /><br />
         번호:
         <input type="text" name="phone_num" /><br /><br />
