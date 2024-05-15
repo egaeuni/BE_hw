@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post
+from django.contrib.auth.decorators import login_required
 #from django.shortchus import render, redirect
 
 # Create your views here.
@@ -8,6 +9,7 @@ def list(request):
     posts = Post.objects.all().order_by('-id')
     return render (request, "blog/list.html", {'posts': posts})
 
+@login_required
 def create(request):
     if request.method == "POST":
         title = request.POST.get('title')
@@ -17,7 +19,7 @@ def create(request):
             title = title,
             content = content,
         )
-        return redirect('list')
+        return redirect('blog:list')
     return render(request, 'blog/create.html')
 
 def detail(request, id):
@@ -30,10 +32,11 @@ def update(request, id):
         post.title = request.POST.get('title')
         post.content = request.POST.get('content')
         post.save()
-        return redirect('detail', id)
+        return redirect('blog:detail', id)
     return render(request, 'blog/update.html', {'post': post})
 
 def delete(request, id):
     post = get_object_or_404(Post, id=id)
     post.delete()
-    return redirect('list')
+    return redirect('blog:list')
+
