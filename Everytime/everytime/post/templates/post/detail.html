@@ -1,0 +1,16 @@
+<body>
+  <h1>{{post.title}}</h1>
+  <br /><br />
+  <h2>{{post.content}}</h2>
+  <br /><br />
+  <h2>{{post.created_at}}</h2>
+
+  {%if post.anonymity == True %}
+  <h4>익명</h4>
+  {%else%}
+  <h4>{{user.nickname}}</h4>
+  {%endif%}
+  <br />
+  <a href="{%url 'post:update' post.id %}">수정하기</a>
+  <a href="{%url 'post:delete' post.id %}">삭제하기</a>
+</body>

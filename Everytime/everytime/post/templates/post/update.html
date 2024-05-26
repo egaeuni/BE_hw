@@ -1,0 +1,7 @@
+<form method="POST" action="{%url 'post:update' post.id %}">
+  {%csrf_token%}
+  <input type="text" value="{{post.title}}" name="title" /><br /><br />
+  <hr />
+  <textarea name="content">{{post.content}}</textarea>
+  <button type="submit">작성 완료</button>
+</form>

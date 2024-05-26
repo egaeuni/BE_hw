@@ -1,0 +1,32 @@
+<body>
+  {%load humanize%} {%if request.user.is_authenticated %}
+  <a href="{%url 'accounts:logout'%}">로그아웃</a><br /><br />
+  <form method="POST" action="{%url 'post:create'%}">
+    {%csrf_token%} {{form}}
+    <form  method="POST" action="{%url 'post:create'%}">
+      <input type="checkbox" name="anonymity" />익명
+    <button type="submit">작성 완료</button>
+    <br /><br />
+    <hr />
+  </form>
+  {%else%}
+  <a href="{%url 'accounts:login'%}">로그인</a>
+  <a href="{%url 'accounts:signup'%}">회원가입</a><br /><br />
+  <form method="POST" action="{%url 'post:create'%}">
+    {%csrf_token%} {{form}}
+    <form  method="POST" action="{%url 'post:create'%}">
+      <input type="checkbox" name="anonymity">익명
+      <button type="submit">작성 완료</button>
+      <br /><br />
+      <hr /></form>
+    
+  {%endif%} {%for post in posts %}
+  <h2><a href="{%url 'post:detail' post.id%}">{{post.title}}</a></h2><br><br>
+  <h3>{{post.content}}</h3> <br><br>
+  <h4>{{post.created_at | naturaltime}}</h4>
+  <hr>
+  {%empty%}
+  <hr />
+  <h2>글이 없습니다.</h2>
+  {%endfor%}
+</body>
