@@ -34,5 +34,9 @@ def logout_view(request):
 def mypage(request):
     return render(request, 'accounts/mypage.html')
 
+def myblog(request):
+    posts = request.user.posts.all().order_by('-id')  #'-id': 역순으로 정렬
+    return render(request, 'accounts/myblog.html', {'posts': posts})
+
 def user_info(request):
     return render(request, 'accounts/user_info.html')
