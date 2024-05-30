@@ -1,6 +1,14 @@
 <body>
-  {%load humanize%} {%if request.user.is_authenticated %}
-  <a href="{%url 'accounts:logout'%}">로그아웃</a><br /><br />
+  {%load humanize%} <!--시간이나 숫자값을 읽기 좋게 출력-->
+  {%if request.user.is_authenticated %}
+  nickname : {{request.user.nickname}}
+  <hr>
+  <a href="{%url 'accounts:user-info'%}">마이페이지</a>
+  <a href="{%url 'accounts:logout'%}">로그아웃</a><br />
+  <hr>
+  <a href="{%url 'accounts:my-blog'%}">내가 작성한 글</a>
+  <a href="{%url 'post:my-scrap'%}">내가 스크랩한 글</a>
+  <br><br>
   <form method="POST" action="{%url 'post:create'%}">
     {%csrf_token%} {{form}}
     <form  method="POST" action="{%url 'post:create'%}">
@@ -17,10 +25,13 @@
     <form  method="POST" action="{%url 'post:create'%}">
       <input type="checkbox" name="anonymity">익명
       <button type="submit">작성 완료</button>
+    </form>
       <br /><br />
-      <hr /></form>
+      <hr />
     
-  {%endif%} {%for post in posts %}
+  {%endif%}
+  
+  {% for post in posts %}
   <h2><a href="{%url 'post:detail' post.id%}">{{post.title}}</a></h2><br><br>
   <h3>{{post.content}}</h3> <br><br>
   <h4>{{post.created_at | naturaltime}}</h4>

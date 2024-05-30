@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import *
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
+from post.models import Post
 
 # Create your views here.
 def signup_view(request):
@@ -34,5 +35,9 @@ def logout_view(request):
 def mypage(request):
     return render(request, 'accounts/mypage.html')
 
+def myblog(request):
+    posts = request.user.user_posts.all().order_by('-id')
+    return render(request, 'accounts/myblog.html', {'posts': posts})
+
 def user_info(request):
-    return render(request, 'accounts/user_info.html')
+    return render(request, 'accounts/user-info.html')
