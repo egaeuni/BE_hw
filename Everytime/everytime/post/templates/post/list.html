@@ -1,43 +1,40 @@
 <body>
-  {%load humanize%} <!--시간이나 숫자값을 읽기 좋게 출력-->
+  {%load humanize%}
+  <!--시간이나 숫자값을 읽기 좋게 출력-->
+  {% for category in categories %}
+  <a href="{%url 'post:create' category.slug %}">{{category.name}}</a>
+  {%endfor%}
   {%if request.user.is_authenticated %}
+  <br /><br>
   nickname : {{request.user.nickname}}
-  <hr>
+  <hr /><br>
   <a href="{%url 'accounts:user-info'%}">마이페이지</a>
   <a href="{%url 'accounts:logout'%}">로그아웃</a><br />
-  <hr>
+  <hr />
   <a href="{%url 'accounts:my-blog'%}">내가 작성한 글</a>
   <a href="{%url 'post:my-scrap'%}">내가 스크랩한 글</a>
-  <br><br>
-  <form method="POST" action="{%url 'post:create'%}">
-    {%csrf_token%} {{form}}
-    <form  method="POST" action="{%url 'post:create'%}">
-      <input type="checkbox" name="anonymity" />익명
-    <button type="submit">작성 완료</button>
-    <br /><br />
-    <hr />
-  </form>
+  <br />
   {%else%}
   <a href="{%url 'accounts:login'%}">로그인</a>
   <a href="{%url 'accounts:signup'%}">회원가입</a><br /><br />
-  <form method="POST" action="{%url 'post:create'%}">
-    {%csrf_token%} {{form}}
-    <form  method="POST" action="{%url 'post:create'%}">
-      <input type="checkbox" name="anonymity">익명
-      <button type="submit">작성 완료</button>
-    </form>
-      <br /><br />
-      <hr />
-    
-  {%endif%}
-  
-  {% for post in posts %}
-  <h2><a href="{%url 'post:detail' post.id%}">{{post.title}}</a></h2><br><br>
-  <h3>{{post.content}}</h3> <br><br>
-  <h4>{{post.created_at | naturaltime}}</h4>
-  <hr>
-  {%empty%}
+
+  <br /><br />
   <hr />
-  <h2>글이 없습니다.</h2>
-  {%endfor%}
-</body>
+  {%endif%}
+<!--카테고리의 글 목록-->
+{% for category in categories %}
+  <h1><a href="{% url 'post:create' category.slug %}">{{ category.name }}</a></h1>
+  {% if category.id %}
+    {% for post in category.posts.all %}
+      <p><a href="{% url 'post:detail' post.id %}">{{ post.title }}</a></p>
+      {%empty%}
+    <p>이 카테고리에는 글이 없습니다.</p>    
+      {% endfor %}
+      <hr>
+  {% else %}
+    <p>이 카테고리에는 글이 없습니다.</p>
+  {% endif %}
+{% endfor %}
+
+
+

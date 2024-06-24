@@ -17,7 +17,7 @@ class Post(models.Model):
     category = models.ManyToManyField(to=Category, through="PostCategory", related_name="posts")
     like = models.ManyToManyField(to=User, through="Like", related_name="liked_posts")
     scrap = models.ManyToManyField(to=User, through="Scrap", related_name="scraped_posts")
-    author = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="user_posts", default=True)
+    author = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="user_posts", null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -36,11 +36,11 @@ class Like(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="user_likes")
 
 class Scrap(models.Model):
-    post = models.ForeignKey(to=Post, on_delete=models.CASCADE, related_name="post_scrap")
-    user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="user_scrap")
+    post = models.ForeignKey(to=Post, on_delete=models.CASCADE, related_name="post_scraps")
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="user_scraps")
 
     def __str__(self):
-        return f'[{self.id}] {self.content}'
+        return f'[{self.id}] {self.title}'
     
 
 class PostCategory(models.Model):

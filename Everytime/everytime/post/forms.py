@@ -8,3 +8,11 @@ class listForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content']
+
+class createForm(forms.ModelForm):
+    title = forms.CharField(label='')
+    comtent = forms.CharField(widget=forms.Textarea, label='')
+    
+    class Meta:
+        model = Post
+        fields = ['title', 'content']

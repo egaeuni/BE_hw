@@ -1,8 +1,37 @@
 <body>
-  <h2>글 작성</h2>
-  <form method="POST" action="{%url 'post:create' %}">
-    {%csrf_token%} 제목 - <input type="text" name="title" /><br /><br />
-    내용 - <textarea name="content"></textarea><br /><br />
-    <input type="submit" value="작성하기" />
+  {%load humanize%}
+  <a href="{%url 'post:list' %}">메인 페이지로 돌아가기</a>
+  <hr />
+  {% for category in categories %}
+  <a href="{%url 'post:create' category.slug%}">{{category.name}}</a>
+  {%endfor%}
+  <br />
+
+  <h1>{{ slug }}</h1>
+  <a href="{%url 'accounts:logout'%}">로그아웃</a>
+  <a href="{%url 'accounts:user-info'%}">마이페이지</a>
+  <br /><br />
+
+  <form action = "{%url 'post:create' category.slug %}" method="POST">
+    {%csrf_token%}
+    <input type="text" placeholder="제목 입력" name="title" />
+    <br />
+    <textarea name="content" placeholder="본문 입력"></textarea>
+    <input type="checkbox" name="anonymity" />익명
+    <input type="submit" value="작성 완료" />
   </form>
+
+{%for post in posts %}
+    <h2><a href="{%url 'post:detail' post.id%}">{{post.title}}</a></h2>
+    <h3>{{post.content}}</h3>
+    <h4>{{post.created_at | naturaltime}}</h4>
+    <p>댓글 {{post.comments.count}}개 공감 {{post.like.count}}개</p>
+    <hr />
+
+{%empty%}
+  <hr />
+  <h2>글이 없습니다.</h2>
+{%endfor%}
+  </form>
+
 </body>
