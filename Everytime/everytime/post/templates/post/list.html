@@ -7,7 +7,7 @@
   {%if request.user.is_authenticated %}
   <br /><br>
   nickname : {{request.user.nickname}}
-  <hr /><br>
+  <hr />
   <a href="{%url 'accounts:user-info'%}">마이페이지</a>
   <a href="{%url 'accounts:logout'%}">로그아웃</a><br />
   <hr />
@@ -25,10 +25,8 @@
 {% for category in categories %}
   <h1><a href="{% url 'post:create' category.slug %}">{{ category.name }}</a></h1>
   {% if category.id %}
-    {% for post in category.posts.all|slice:":4" %}
-      <p><a href="{% url 'post:detail' post.id %}">{{ post.title }}</a></p>
-      {%empty%}
-    <p>이 카테고리에는 글이 없습니다.</p>    
+    {% for post in category.posts.all|dictsortreversed:"created_at"|slice:":4"%}
+      <p><a href="{% url 'post:detail' post.id %}">{{ post.title }}</a></p>  
       {% endfor %}
       <hr>
   {% else %}

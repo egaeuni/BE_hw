@@ -28,7 +28,7 @@ def list(request):
 @login_required
 def create(request,slug):
     category = get_object_or_404(Category,slug=slug)
-    posts = Post.objects.filter(category=category).order_by('-id')[0:4]
+    posts = Post.objects.filter(category=category).order_by('-created_at')
     categories = Category.objects.all() 
 
     if request.method == "POST":
