@@ -36,7 +36,7 @@ def mypage(request):
     return render(request, 'accounts/mypage.html')
 
 def myblog(request):
-    posts = request.user.user_posts.all().order_by('-id')
+    posts = Post.objects.all().order_by('-created_at')
     return render(request, 'accounts/myblog.html', {'posts': posts})
 
 def user_info(request):

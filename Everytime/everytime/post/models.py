@@ -39,7 +39,6 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="comments")
     anonymity = models.BooleanField(default=True)
-    
 
 class Like(models.Model):
     post = models.ForeignKey(to=Post, on_delete=models.CASCADE, related_name="post_likes")

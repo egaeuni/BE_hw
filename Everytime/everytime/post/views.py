@@ -10,16 +10,16 @@ def list(request):
     
     if category_id:
         category = get_object_or_404(Category, id=category_id)
-        post = Post.objects.filter(category=category).order_by('-created_at')[:4]
+        posts = Post.objects.filter(category=category).order_by('-created_at')[:4]
 
     else:
         category = None
-        post = Post.objects.all().order_by('-created_at')[:4]
+        posts = Post.objects.all().order_by('-created_at')[:4]
 
     form = listForm()
 
     return render(request, "post/list.html", {
-        'post': post,
+        'posts': posts,
         'form': form,
         'categories': categories,
         'category': category,
