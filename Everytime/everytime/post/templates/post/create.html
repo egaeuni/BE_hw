@@ -12,15 +12,17 @@
   <a href="{%url 'accounts:user-info'%}">마이페이지</a>
   <br /><br />
 
-  <form action = "{%url 'post:create' category.slug %}" method="POST">
+  <form action = "{%url 'post:create' category.slug %}" method="POST" enctype="multipart/form-data">
     {%csrf_token%}
     <input type="text" placeholder="제목 입력" name="title" />
     <br />
     <textarea name="content" placeholder="본문 입력"></textarea>
-    <input type="checkbox" name="anonymity" />익명
+    <input type="checkbox" name="anonymity" />익명<br>
+    동영상 <input type="file" name = "video"><br>
+    이미지 <input type="file" name = "image"><br>
     <input type="submit" value="작성 완료" />
   </form>
-
+<hr>
 {%for post in posts %}
     <h2><a href="{%url 'post:detail' post.id%}">{{post.title}}</a></h2>
     <h3>{{post.content}}</h3>

@@ -1,7 +1,18 @@
 <form method="POST" action="{%url 'post:update' post.id %}">
   {%csrf_token%}
-  <input type="text" value="{{post.title}}" name="title" /><br /><br />
-  <hr />
-  <textarea name="content">{{post.content}}</textarea>
+  <input type="text" value="{{post.title}}" name="title" /><br />
+  <hr /><br>
+  <textarea name="content">{{post.content}}</textarea> <br>
+  {%if post.image%}
+    기존 이미지: <img width="320" height="240" src="{{post.image.url}}"><br><br>
+  {%endif%}
+    이미지 변경 - <input type="file" name = "image"><br><br>
+  {%if post.video%}
+    기존 비디오: <video width="320" height="240" controls>
+      <source src = "{{post.video.url}}" type="video/mp4">
+    </video>
+  {%endif%} <br><br>
+  비디오 변경 - <input type="file" name = "video"><br>
   <button type="submit">작성 완료</button>
+
 </form>

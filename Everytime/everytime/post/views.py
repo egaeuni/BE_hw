@@ -10,11 +10,11 @@ def list(request):
     
     if category_id:
         category = get_object_or_404(Category, id=category_id)
-        post = Post.objects.filter(category=category).order_by('-id')[:4]
+        post = Post.objects.filter(category=category).order_by('-created_at')[:4]
 
     else:
         category = None
-        post = Post.objects.all().order_by('-id')[:4]
+        post = Post.objects.all().order_by('-created_at')[:4]
 
     form = listForm()
 
@@ -35,11 +35,15 @@ def create(request,slug):
         title = request.POST.get('title')
         content = request.POST.get('content')
         anonymity = request.POST.get('anonymity')  == 'on'
+        video = request.FILES.get('video')
+        image = request.FILES.get('image')
 
         post=Post.objects.create(
             title = title,
             content = content,
             anonymity = anonymity,
+            video = video,
+            image = image,
         )
         post.category.add(category)
         post.save()
@@ -58,6 +62,16 @@ def update(request,id):
     if request.method == "POST":
         post.title = request.POST.get('title')
         post.content = request.POST.get('content')
+        video = request.FILES.get('video')
+        image = request.FILES.get('image')
+
+        if video:
+            post.video.delete()
+            post.video = video
+        if image:
+            post.image.delete()
+            post.image = image
+
         post.save()
         return redirect('post:detail', id)
     return render(request, 'post/update.html', {'post': post})
@@ -101,7 +115,6 @@ def remove_like(request, post_id):
     post = get_object_or_404(Post, id= post_id)
     post.like.remove(request.user)
     return redirect('post:detail', post_id)
-
 
 def add_scrap(request, post_id):
     post = get_object_or_404(Post, id= post_id)

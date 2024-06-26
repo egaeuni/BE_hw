@@ -25,7 +25,7 @@
 {% for category in categories %}
   <h1><a href="{% url 'post:create' category.slug %}">{{ category.name }}</a></h1>
   {% if category.id %}
-    {% for post in category.posts.all %}
+    {% for post in category.posts.order_by %}
       <p><a href="{% url 'post:detail' post.id %}">{{ post.title }}</a></p>
       {%empty%}
     <p>이 카테고리에는 글이 없습니다.</p>    

@@ -10,7 +10,7 @@
     <h2><a href="{%url 'post:detail' post.id %}"> {{post.title}}</a></h2>
     <h3>{{post.content}}</h3>
     <h3>{{post.created_at}}</h3>
-    댓글 {{post.comments.count}}개 공감 {{post.like.count}}개
+    댓글 {{post.comments.count}}개 스크랩 {{post.like.count}}개
     <hr />
     {% empty %} 글이 없습니다. {% endfor%}
   </body>
